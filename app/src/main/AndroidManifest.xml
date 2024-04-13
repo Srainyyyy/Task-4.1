@@ -28,6 +28,10 @@
         <activity android:name=".TaskDetails">
 
         </activity>
+        <activity android:name=".TaskEdit">
+
+        </activity>
+
     </application>
 
 </manifest>

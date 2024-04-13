@@ -68,18 +68,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 启动新建任务界面
                 Intent intent = new Intent(MainActivity.this, CreateTaskActivity.class);
+
                 startActivity(intent);
             }
         });
     }
 
     // 模拟数据
+    // 模拟数据
     private void populateTaskList() {
         // 从数据库中获取任务数据
-
         taskList.addAll(taskDB.getAllTasks());
-        Log.d("TaskList", "Task list size: " + taskList.size());
+        Log.d("MainActivity", "Task list size: " + taskList.size()); // 添加日志输出
     }
+
     // 处理从CreateTaskActivity返回的结果
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -129,15 +131,14 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void updateTaskList() {
-        // 初始化数据库操作类
-        TaskManageDB taskDB = new TaskManageDB(this);
-
         // 获取最新的任务列表
-        List<Task> taskList = taskDB.getAllTasks();
+        taskList.clear();
+        taskList.addAll(taskDB.getAllTasks());
 
         // 设置任务列表适配器
         ArrayAdapter<Task> taskAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, taskList);
         listViewTasks.setAdapter(taskAdapter);
     }
+
 
 }
