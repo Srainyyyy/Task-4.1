@@ -21,7 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ListView listViewTasks;
     private List<Task> taskList;
-    private TaskManageDB taskDB; // 引入数据库操作类
+    private TaskManageDB taskDB;
     private static final int REQUEST_CODE_CREATE_TASK = 1;
 
     @Override
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         listViewTasks.setAdapter(taskAdapter);
 
         // 点击任务列表项事件
-        // 点击任务列表项事件
+
         listViewTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -75,14 +75,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 模拟数据
-    // 模拟数据
     private void populateTaskList() {
         // 从数据库中获取任务数据
-        taskList.addAll(taskDB.getAllTasks());
-        Log.d("MainActivity", "Task list size: " + taskList.size()); // 添加日志输出
-    }
 
-    // 处理从CreateTaskActivity返回的结果
+        taskList.addAll(taskDB.getAllTasks());
+        Log.d("TaskList", "Task list size: " + taskList.size());
+    }
+    // 处理结果
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // 广播接收器，用于接收任务添加广播并更新任务列表
+    // 广播接收器2
     private BroadcastReceiver taskAddedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -131,14 +130,15 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void updateTaskList() {
+        // 初始化数据库操作类
+        TaskManageDB taskDB = new TaskManageDB(this);
+
         // 获取最新的任务列表
-        taskList.clear();
-        taskList.addAll(taskDB.getAllTasks());
+        List<Task> taskList = taskDB.getAllTasks();
 
         // 设置任务列表适配器
         ArrayAdapter<Task> taskAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, taskList);
         listViewTasks.setAdapter(taskAdapter);
     }
-
 
 }

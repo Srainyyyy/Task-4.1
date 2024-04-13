@@ -12,7 +12,6 @@
         android:inputType="textCapSentences"
         android:layout_marginBottom="16dp" />
 
-
     <EditText
         android:id="@+id/editText_editdescription"
         android:layout_width="match_parent"

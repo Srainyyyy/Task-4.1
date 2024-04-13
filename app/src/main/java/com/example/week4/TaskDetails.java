@@ -1,5 +1,6 @@
 package com.example.week4;
 
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,30 +45,32 @@ public class TaskDetails extends AppCompatActivity {
         buttonDelete = findViewById(R.id.button_delete);
         buttonEdit=findViewById(R.id.button_edit);
         taskDB= new TaskManageDB(this);
-        taskList = new ArrayList<>(); // 在这里进行初始化
+        taskList = new ArrayList<>();
 
 
 
 
-        // 获取传递过来的任务信息
+        // 获取信息
         Intent intent = getIntent();
         if (intent != null) {
             task = (Task) intent.getSerializableExtra("task");
-
             if (task != null) {
                 String title = intent.getStringExtra("title");
                 String description = intent.getStringExtra("description");
                 String dueDate = intent.getStringExtra("dueDate");
+
                 // 设置任务详情信息
                 textViewTitle.setText(title);
                 textViewDescription.setText(description);
                 textViewDueDate.setText(dueDate);
             } else {
+                // 如果task为null
                 Toast.makeText(TaskDetails.this, "Task object is null", Toast.LENGTH_SHORT).show();
                 finish(); // 结束当前Activity
             }
         }
 
+        //编辑按钮
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,12 +99,12 @@ public class TaskDetails extends AppCompatActivity {
     }
     private void editTask() {
 
-        // 获取当前任务的标题、描述和截止日期
+        // 获取
         String title = textViewTitle.getText().toString();
         String description = textViewDescription.getText().toString();
         String dueDate = textViewDueDate.getText().toString();
 
-        // 创建编辑任务的意图
+        // 创建编辑任务
         Intent intent = new Intent(TaskDetails.this, TaskEdit.class);
         intent.putExtra("task", task);
         intent.putExtra("title", title);

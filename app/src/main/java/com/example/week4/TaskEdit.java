@@ -50,22 +50,20 @@ public class TaskEdit extends AppCompatActivity {
                 editTextDescription.setText(task.getDescription());
                 editTextDueDate.setText(task.getDueDate());
             } else {
-                // 如果task为null，可能需要采取适当的处理方法，例如显示错误消息或者返回上一个界面
+                // 如果task为null
                 Toast.makeText(TaskEdit.this, "Task object is null", Toast.LENGTH_SHORT).show();
                 finish(); // 结束当前Activity
             }
         }else {
-            // 如果task为null，可能需要采取适当的处理方法，例如显示错误消息或者返回上一个界面
+            // 如果task为null
             Toast.makeText(TaskEdit.this, "intent object is null", Toast.LENGTH_SHORT).show();
-            finish(); // 结束当前Activity
+            finish();
         }
         // 保存按钮点击事件
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateTask();
-                Intent broadcastIntent = new Intent("com.example.week4.TASK_UPDATED");
-                sendBroadcast(broadcastIntent);
             }
         });
     }
@@ -85,8 +83,7 @@ public class TaskEdit extends AppCompatActivity {
         // 判断是否成功更新任务
         if (result != -1) {
             Toast.makeText(TaskEdit.this, "Task updated,Please return to the Task list page", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent("com.example.week4.TASK_UPDATE");
-            setResult(RESULT_OK, intent);
+            Intent intent = new Intent("com.example.week4.TASK_EDIT");
             ((ArrayAdapter<Task>) listViewTasks.getAdapter()).notifyDataSetChanged();
             finish();
         } else {
